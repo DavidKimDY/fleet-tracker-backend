@@ -30,6 +30,9 @@ async def ws(websocket: WebSocket) -> None:
             elif action == "get_speed":
                 result = store.get_speed(identifier)
                 await websocket.send_json(result or {"error": "not found"})
+            elif action == "get_acceleration":
+                result = store.get_acceleration(identifier)
+                await websocket.send_json(result or {"error": "not found"})
             else:
                 await websocket.send_json({"error": "unknown action"})
     except WebSocketDisconnect:

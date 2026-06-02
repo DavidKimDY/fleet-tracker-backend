@@ -63,5 +63,14 @@ class FleetStore:
             }
         }
 
+    def get_acceleration(self, identifier: str) -> dict | None:
+        if identifier not in self._data:
+            return None
+        return {
+            identifier: {
+                t: {"가속도": entry["가속도"]} for t, entry in self._data[identifier].items()
+            }
+        }
+
     def get_all(self) -> dict:
         return dict(self._data)
