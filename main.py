@@ -6,13 +6,14 @@ app = FastAPI(title="Fleet Tracker")
 store = FleetStore()
 
 
-@app.get("/ram")
+@app.api_route("/ram", methods=["GET", "HEAD"])
 def get_ram() -> dict:
     return store.get_all()
 
-@app.get("/")
+
+@app.api_route("/", methods=["GET", "HEAD"])
 def index() -> dict:
-    return {"status" : "Ok"}
+    return {"status": "Ok"}
 
 
 @app.websocket("/ws")
