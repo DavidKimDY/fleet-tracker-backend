@@ -74,3 +74,12 @@ class FleetStore:
 
     def get_all(self) -> dict:
         return dict(self._data)
+
+    def get_telemetry(self, identifier: str) -> dict | None:
+        if identifier not in self._data:
+            return None
+        return {identifier: dict(self._data[identifier])}
+
+    def reset(self) -> None:
+        self._data.clear()
+        self._last.clear()

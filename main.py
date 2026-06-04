@@ -11,6 +11,12 @@ def get_ram() -> dict:
     return store.get_all()
 
 
+@app.get("/reset")
+def reset_ram() -> dict:
+    store.reset()
+    return {"ok": True}
+
+
 @app.api_route("/", methods=["GET", "HEAD"])
 def index() -> dict:
     return {"status": "Ok"}
@@ -37,6 +43,9 @@ async def ws(websocket: WebSocket) -> None:
                 await websocket.send_json(result or {"error": "not found"})
             elif action == "get_acceleration":
                 result = store.get_acceleration(identifier)
+                await websocket.send_json(result or {"error": "not found"})
+            elif action == "get_telemetry":
+                result = store.get_telemetry(identifier)
                 await websocket.send_json(result or {"error": "not found"})
             else:
                 await websocket.send_json({"error": "unknown action"})
