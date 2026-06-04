@@ -10,6 +10,10 @@ store = FleetStore()
 def get_ram() -> dict:
     return store.get_all()
 
+@app.get("/")
+def index() -> dict:
+    return {"status" : "Ok"}
+
 
 @app.websocket("/ws")
 async def ws(websocket: WebSocket) -> None:
